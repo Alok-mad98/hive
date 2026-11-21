@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.wrangler/
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+*.log
+*.pem
+*.key
+*.p12
+*.exe
+*.msi
+.DS_Store

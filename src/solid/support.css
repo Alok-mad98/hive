@@ -1,0 +1,117 @@
+.hive-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(25px, 5vw, 74px) clamp(22px, 7vw, 112px) clamp(32px, 5vw, 78px);
+  border-top: 1px solid #3a382f;
+  color: var(--paper, #f6f4eb);
+  background: var(--ink, #181a17);
+}
+.hive-footer-wordmark {
+  font: 650 clamp(76px, 13.5vw, 198px)/.8 var(--display, sans-serif);
+  letter-spacing: -.085em;
+}
+.hive-footer-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  color: inherit;
+  white-space: nowrap;
+  text-underline-offset: .25em;
+  font: 400 12px var(--mono, monospace);
+}
+.hive-footer-link:hover { color: #f7d370; }
+.hive-overscroll {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hive-overscroll canvas {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+}
+.hive-missing {
+  width: min(1160px, calc(100% - 2 * clamp(22px, 6vw, 92px)));
+  min-height: 72svh;
+  display: grid;
+  grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 88px);
+  margin-inline: auto;
+  padding-block: clamp(40px, 10vh, 100px);
+}
+.hive-missing-code, .hive-game-tools {
+  font-family: var(--mono, monospace);
+  font-size: 11px;
+  letter-spacing: .09em;
+}
+.hive-missing-code { color: var(--muted, #52574e); }
+.hive-missing h1 {
+  margin: .12em 0 .16em;
+  font: 650 clamp(54px, 7.8vw, 116px)/.93 var(--display, sans-serif);
+  letter-spacing: -.045em;
+}
+.hive-missing p { max-width: 32ch; margin: 0 0 26px; line-height: 1.6; }
+.hive-home-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 17px;
+  border: 1px solid currentColor;
+  color: inherit;
+  text-decoration: none;
+}
+.hive-home-link:hover { background: var(--ink, #181a17); color: var(--paper, #f6f4eb); }
+.hive-game { min-width: 0; }
+.hive-board-frame {
+  position: relative;
+  min-height: 290px;
+  aspect-ratio: 1.5;
+  overflow: hidden;
+  border: 1px solid #25251c;
+  background: #23231d;
+}
+.hive-board {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+}
+.hive-board:focus-visible { outline: 2px solid #f6d685; outline-offset: -4px; }
+.hive-board canvas { display: block; width: 100%; height: 100%; }
+.hive-game-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+.hive-dpad { display: flex; gap: 4px; }
+.hive-dpad button {
+  inline-size: 44px;
+  block-size: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--rule, #c5c3b8);
+  background: transparent;
+  color: inherit;
+  font: 500 17px var(--sans, sans-serif);
+  cursor: pointer;
+}
+.hive-dpad button:hover { background: #e9e3d2; }
+@media (max-width: 720px) {
+  .hive-missing { grid-template-columns: minmax(0, 1fr); }
+  .hive-board-frame { min-height: 250px; }
+  .hive-game-tools { flex-wrap: wrap; }
+}
+@media (max-width: 380px) {
+  .hive-footer { align-items: flex-start; flex-direction: column; gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hive-overscroll { display: none; }
+}
