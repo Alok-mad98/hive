@@ -82,6 +82,6 @@ Keep labels direct. Use “Coming soon” while the fresh Windows release is pen
 - **Hackathon template** shows a sample set of reusable roles.
 - **Scout and crew** use original bee-themed illustrations to introduce Hive and give the example agent roles distinct faces.
 - **Windows panel** combines Shader Gradient, Radiant Lines, and a Ring Tower with amber honeycomb bands. The bands spin in place and respond to scroll and drag.
-- **Cursor bees** leave short yellow trails, loop back to the mouse or pen, and fade. Touch and reduced-motion browsing skip the effect.
+- **Cursor bees** leave short yellow trails as they circle the viewport, then return to the mouse or pen and fade. Touch and reduced-motion browsing skip the effect.
 - **Stretchy Footer** stretches past the scroll boundary and returns to its resting position.
 - **Snake 404** gives visitors a playable missing-page screen and a link home.

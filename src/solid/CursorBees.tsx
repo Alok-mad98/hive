@@ -1,31 +1,46 @@
 import { onSettled } from 'solid-js'
 
 type Point = { x: number; y: number }
-type Flight = { origin: Point; start: number; duration: number; angle: number; side: number; reach: number }
+type Flight = {
+  origin: Point
+  start: number
+  duration: number
+  angle: number
+  sweep: number
+  radiusX: number
+  radiusY: number
+}
 
-function flightPoint(bee: Flight, pointer: Point, time: number): Point {
-  const returnToPointer = time * time * (3 - 2 * time)
-  const distance = Math.sin(Math.PI * time) * bee.reach
-  const turn = bee.angle + bee.side * time * 4.6
+function ease(time: number) {
+  const progress = Math.max(0, Math.min(1, time))
+  return progress * progress * (3 - 2 * progress)
+}
+
+function flightPoint(bee: Flight, pointer: Point, time: number, width: number, height: number): Point {
+  const turn = bee.angle + bee.sweep * time
+  const orbitX = (.5 + Math.cos(turn) * bee.radiusX) * width
+  const orbitY = (.5 + Math.sin(turn) * bee.radiusY) * height
+  const takeoff = 1 - ease(time / .19)
+  const landing = ease((time - .76) / .24)
   return {
-    x: bee.origin.x + (pointer.x - bee.origin.x) * returnToPointer + Math.cos(turn) * distance,
-    y: bee.origin.y + (pointer.y - bee.origin.y) * returnToPointer + Math.sin(turn) * distance,
+    x: orbitX + (bee.origin.x - orbitX) * takeoff + (pointer.x - orbitX) * landing,
+    y: orbitY + (bee.origin.y - orbitY) * takeoff + (pointer.y - orbitY) * landing,
   }
 }
 
-function drawBee(context: CanvasRenderingContext2D, bee: Flight, pointer: Point, now: number, time: number) {
-  const position = flightPoint(bee, pointer, time)
-  const tailStart = Math.max(0, time - .26)
-  const fade = Math.min(1, time * 19, (1 - time) * 6)
-  const heading = flightPoint(bee, pointer, Math.max(0, time - .018))
+function drawBee(context: CanvasRenderingContext2D, bee: Flight, pointer: Point, now: number, time: number, width: number, height: number) {
+  const position = flightPoint(bee, pointer, time, width, height)
+  const tailStart = Math.max(0, time - 170 / bee.duration)
+  const fade = Math.min(1, time * 24, (1 - time) * 23)
+  const heading = flightPoint(bee, pointer, Math.max(0, time - 24 / bee.duration), width, height)
   const wingSpan = 2.8 + Math.abs(Math.sin(now * .052 + bee.angle)) * 2.5
 
   context.strokeStyle = '#ffc43d'
   context.lineWidth = 1.35
   context.lineCap = 'round'
-  let last = flightPoint(bee, pointer, tailStart)
+  let last = flightPoint(bee, pointer, tailStart, width, height)
   for (let index = 1; index <= 10; index++) {
-    const next = flightPoint(bee, pointer, tailStart + (time - tailStart) * index / 10)
+    const next = flightPoint(bee, pointer, tailStart + (time - tailStart) * index / 10, width, height)
     context.globalAlpha = fade * .69 * (index / 10) ** 1.7
     context.beginPath()
     context.moveTo(last.x, last.y)
@@ -88,7 +103,7 @@ function followPointer(canvas: HTMLCanvasElement) {
       const bee = flights[index]
       const time = (now - bee.start) / bee.duration
       if (time >= 1) flights.splice(index, 1)
-      else drawBee(context, bee, pointer, now, Math.max(0, time))
+      else drawBee(context, bee, pointer, now, Math.max(0, time), width, height)
     }
     if (flights.length) frame = requestAnimationFrame(draw)
   }
@@ -104,16 +119,22 @@ function followPointer(canvas: HTMLCanvasElement) {
 
   function move(event: PointerEvent) {
     if (motion.matches || (event.pointerType !== 'mouse' && event.pointerType !== 'pen')) return
-    const previous = pointer
     pointer = { x: event.clientX, y: event.clientY }
     const now = performance.now()
-    if (now - lastTime < 85 || (lastLaunch && Math.hypot(pointer.x - lastLaunch.x, pointer.y - lastLaunch.y) < 17)) return
+    if (flights.length >= 12 || now - lastTime < 310 || (lastLaunch && Math.hypot(pointer.x - lastLaunch.x, pointer.y - lastLaunch.y) < 17)) return
     lastTime = now
-    const angle = lastLaunch ? Math.atan2(pointer.y - previous.y, pointer.x - previous.x) : -Math.PI / 2
     lastLaunch = pointer
     side *= -1
-    if (flights.length >= 12) flights.shift()
-    flights.push({ origin: pointer, start: now, duration: 850 + Math.random() * 260, angle: angle + side * 1.25, side, reach: 42 + Math.random() * 34 })
+    const angle = Math.atan2(pointer.y / height - .5, pointer.x / width - .5)
+    flights.push({
+      origin: pointer,
+      start: now,
+      duration: 2850 + Math.random() * 570,
+      angle: angle + side * .35,
+      sweep: side * (Math.PI * 2 + Math.random() * .5),
+      radiusX: .37 + Math.random() * .08,
+      radiusY: .34 + Math.random() * .08,
+    })
     if (!frame) frame = requestAnimationFrame(draw)
   }
 
