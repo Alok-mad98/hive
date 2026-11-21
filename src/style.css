@@ -38,6 +38,7 @@ body[data-page="landing"] { color: #f3ecdd; background: #141510; }
 [data-page="landing"] .hive-footer { background: #141510d9; }
 .noscript-copy { width: min(45rem, 90%); margin: 10vh auto; }
 .story-field { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: #141510; pointer-events: none; }
+.cursor-bees { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 30; pointer-events: none; }
 .story-glyphs {
   position: absolute;
   inset: 50% auto auto 55%;
@@ -123,8 +124,10 @@ body[data-page="landing"] { color: #f3ecdd; background: #141510; }
 .rays-field { opacity: .6; mask-image: radial-gradient(ellipse,#000 22%,transparent 71%); }
 .ring-object,.ring-still { position: absolute; inset: 4% 5% 9% 6%; }
 .ring-object canvas { display: block; width: 100%; height: 100%; pointer-events: auto; touch-action: pan-y; }
-.ring-still { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; align-content: center; justify-content: center; width: min(82%,420px); margin-inline: auto; }
-.ring-still img { width: 100%; height: auto; display: block; border: 1px solid #9d753ea1; border-radius: 5px; }
+.ring-still { display: grid; align-content: center; gap: 5%; width: min(80%, 470px); margin-inline: auto; }
+.ring-still > div { aspect-ratio: 3.8; border-radius: 50% / 18%; border: 1px solid #bf843b; background: linear-gradient(90deg, #21160999, transparent 35% 68%, #211609b0), url('/ring-honeycomb.webp') center / cover; transform: rotate(-8deg); }
+.ring-still > div:first-child { transform: translateX(-4%) rotate(7deg); }
+.ring-still > div:last-child { transform: translateX(4%) rotate(5deg); }
 .ring-object[data-ready] ~ .ring-still { visibility: hidden; }
 .ring-hint { display: none; position: absolute; bottom: 2%; left: 50%; translate: -50% 0; color: #e9b873; white-space: nowrap; font: 400 11px/1.4 var(--mono); }
 .ring-object[data-ready] ~ .ring-hint { display: inline; }
@@ -169,5 +172,6 @@ body[data-page="landing"] { color: #f3ecdd; background: #141510; }
 }
 @media (prefers-reduced-motion: reduce) {
   :root { scroll-behavior: auto; }
+  .cursor-bees { display: none; }
   *, *::before, *::after { animation: none !important; transition-duration: 0s !important; }
 }

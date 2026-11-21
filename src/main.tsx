@@ -5,6 +5,7 @@ import '@fontsource/geist/latin-600.css'
 import '@fontsource-variable/bricolage-grotesque'
 import '@fontsource/ibm-plex-mono/latin-400.css'
 import { AgentCrew, Mascot, StoryField, RingStudy } from './solid/Artwork'
+import CursorBees from './solid/CursorBees'
 import Narration from './solid/Narration'
 import Footer, { FooterContent } from './solid/Footer'
 import Missing from './solid/Missing'
@@ -121,6 +122,7 @@ function App() {
       <FooterContent />
     </div>
     <Footer />
+    {!missing && <CursorBees />}
   </>
 }
 

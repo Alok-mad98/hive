@@ -6,7 +6,7 @@ const crew = [
   { role: 'Design', image: '/crew/design.webp' },
   { role: 'Review', image: '/crew/review.webp' },
 ]
-const crewTextures = crew.map(member => member.image)
+const ringTexture = '/ring-honeycomb.webp'
 
 type Engine = { destroy(): void }
 type Setup = () => Promise<(() => Engine | null)>
@@ -119,7 +119,7 @@ export function RingStudy() {
       attachArt(rings, async () => {
         const { createRingTower } = await import('../engines/ring-tower')
         return () => createRingTower(rings, {
-          images: crewTextures,
+          images: [ringTexture],
           rings: [
             { rotation: -28, tilt: 14, speed: .68, spin: 14 },
             { rotation: 67, tilt: 19, speed: -.85, spin: -18 },
@@ -137,7 +137,7 @@ export function RingStudy() {
       <canvas class="rays-field" ref={rays} data-slot="radiant-lines" />
       <div class="ring-object" ref={rings} data-slot="ring-tower" />
       <div class="ring-still">
-        {crewTextures.map(image => <img src={image} width="384" height="384" alt="" loading="lazy" />)}
+        {[0, 1, 2].map(() => <div />)}
       </div>
       <span class="ring-hint">← Drag to spin →</span>
     </div>

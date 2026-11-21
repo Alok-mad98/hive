@@ -1,12 +1,14 @@
 # Hive character artwork
 
-The Hive scout and agent portraits were generated with built-in ImageGen and packaged as WebP for the landing page. The scout retains transparency. The four portrait tiles are shared by the crew section and the Ring Tower.
+The Hive scout and agent portraits were generated with built-in ImageGen and packaged as WebP for the landing page. The scout retains transparency. The four portrait tiles illustrate roles in the crew section.
 
 - [Scout mascot](./public/crew/scout-mascot.webp)
 - [Research](./public/crew/research.webp)
 - [Build](./public/crew/build.webp)
 - [Design](./public/crew/design.webp)
 - [Review](./public/crew/review.webp)
+
+The Ring Tower uses a [procedurally drawn amber honeycomb strip](./public/ring-honeycomb.webp).
 
 ## Mascot prompt
 
