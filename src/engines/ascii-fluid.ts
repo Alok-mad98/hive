@@ -746,10 +746,11 @@ export function createAsciiFluid(
       mouse.dy = 0
     }
 
-    // Soft ambient swirl so the field never fully dies when idle
-    if (p.animate && !reduce && !mouse.inside) {
-      const ax = Math.sin(time * 0.55) * 0.22
-      const ay = Math.cos(time * 0.42) * 0.22
+    // Keep the ambient current alive when a pointer rests in a full-screen field.
+    if (p.animate && !reduce) {
+      const ambientForce = mouse.inside ? 0.08 : 0.22
+      const ax = Math.sin(time * 0.55) * ambientForce
+      const ay = Math.cos(time * 0.42) * ambientForce
       bindQuad(splat.program)
       gl.activeTexture(gl.TEXTURE0)
       gl.bindTexture(gl.TEXTURE_2D, velocity.read.tex)

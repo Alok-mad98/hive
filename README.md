@@ -25,10 +25,10 @@ Run `npm run build` to type-check the project and generate the static site in `d
 
 | Location | Contents |
 | --- | --- |
-| [src/main.tsx](./src/main.tsx) | Solid 2 landing page and navigation |
-| [src/solid](./src/solid) | Artwork, footer, and playable Snake 404 page |
+| [src/main.tsx](./src/main.tsx) | Solid 2 scroll chapters and navigation |
+| [src/solid](./src/solid) | Continuous ASCII canvas, footer, and playable Snake 404 page |
 | [src/engines](./src/engines) | Six animation engines and their upstream credits |
-| [public](./public) | Hive mark, amber artwork, and self-hosted font licenses |
+| [public](./public) | Hive mark, ring texture, and self-hosted font licenses |
 
 ## Hosting
 

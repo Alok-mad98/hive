@@ -4,7 +4,7 @@ The six TypeScript engines in this directory come from Jay’s [23rd UI registry
 
 | Engine | Placement |
 | --- | --- |
-| [ASCII Fluid](https://www.23rd.dev/docs/components/ascii-fluid) | Hero specimen field |
+| [ASCII Fluid](https://www.23rd.dev/docs/components/ascii-fluid) | A single continuous viewport-height field behind every landing chapter |
 | [Shader Gradient](https://www.23rd.dev/docs/components/shader-gradient) | Windows release backdrop |
 | [Radiant Lines](https://www.23rd.dev/docs/components/radiant-lines) | Scroll-responsive streaks behind the rings |
 | [Ring Tower](https://www.23rd.dev/docs/components/ring-tower) | Engraved gold bands in the release section |

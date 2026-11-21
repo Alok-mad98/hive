@@ -40,39 +40,35 @@ function attachArt(node: HTMLElement, setup: Setup) {
   }
 }
 
-const stillGlyphs = " .:+=*#%"
-const asciiStill = Array.from({ length: 12 }, (_, y) =>
-  Array.from({ length: 74 }, (_, x) => {
-    const angle = x * .12 + y * .40
-    const ridge = Math.sin(angle) * 2.25 + 5.5
-    const distance = Math.abs(y - ridge)
-    const strength = Math.max(0, 1 - distance / 4) * (.45 + .55 * Math.abs(Math.cos(x * .077)))
-    return stillGlyphs[Math.round(strength * (stillGlyphs.length - 1))]
+const glyphs = ' .:;=+*#@'
+const stillCurrent = Array.from({ length: 84 }, (_, row) =>
+  Array.from({ length: 182 }, (_, column) => {
+    const x = (column - 105) / 75
+    const y = (row - 42) / 34
+    const flow = y + Math.sin(x * 2.3 + y * .4) * .52
+    const filament = Math.sin(flow * 12 + Math.cos(x * 4) * 2.4 + x * 1.5)
+    const envelope = Math.exp(-Math.abs(flow) * 1.7 - Math.abs(x) * .55)
+    const grain = .7 + .3 * Math.sin(row * 81.1 + column * 37.9)
+    const density = Math.max(0, filament) ** 2 * envelope * grain
+    return glyphs[Math.round(density * (glyphs.length - 1))]
   }).join("")
 ).join("\n")
 
-export function Specimen() {
+export function StoryField() {
   let field!: HTMLCanvasElement
   onSettled(() => attachArt(field, async () => {
     const { createAsciiFluid } = await import('../engines/ascii-fluid')
     return () => createAsciiFluid(field, {
-      charset: " .·:;+x#@", theme: "dark", color: "#ffd471", backgroundColor: "#000000",
-      cellSize: 9, brush: .85, force: 1.35, dissipation: .033, ambientInk: .54
+      charset: ' .:;+x#@', theme: 'dark', color: '#dca457', backgroundColor: '#000000',
+      cellSize: 12, brush: .78, force: 1.13, dissipation: .043, ambientInk: .33
     })
   }))
   return (
-    <figure class="specimen" aria-label="Honeybee sculpture in amber and smoked glass">
-      <div class="specimen-frame" aria-hidden="true">
-        <div class="registration" />
-        <img class="amber-bee" src="/hive-amber.webp" alt="" width="1120" height="1120" fetchpriority="high" />
-        <i class="cross top-left" /><i class="cross top-right" /><i class="cross bottom-left" /><i class="cross bottom-right" />
-      </div>
-      <div class="ascii-stage" aria-hidden="true">
-        <pre>{asciiStill}</pre>
-        <canvas ref={field} class="ascii-field" data-slot="ascii-fluid" />
-      </div>
-      <figcaption><span>ASCII FLUID · MOVE TO STIR</span><span>Apis mellifera</span></figcaption>
-    </figure>
+    <div class="story-field" aria-hidden="true">
+      <pre class="story-glyphs">{stillCurrent}</pre>
+      <canvas ref={field} class="ascii-field" data-slot="ascii-fluid" />
+      <div class="story-wash" />
+    </div>
   )
 }
 

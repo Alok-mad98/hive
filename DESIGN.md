@@ -10,6 +10,10 @@ colors:
   rule: "#c5c3b8"
   focus: "#986410"
   button-text: "#fffdf4"
+  story-field: "#141510"
+  story-text: "#f3ecdd"
+  story-copy: "#e6dac4"
+  story-label: "#e9b873"
 typography:
   display:
     fontFamily: Bricolage Grotesque
@@ -28,8 +32,8 @@ spacing:
   touch-target: 44px
 components:
   page:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.primary}"
+    backgroundColor: "{colors.story-field}"
+    textColor: "{colors.story-text}"
   supporting-copy:
     backgroundColor: "{colors.paper}"
     textColor: "{colors.muted}"
@@ -49,11 +53,11 @@ components:
 
 ## Overview
 
-Hive pairs a paper-and-ink composition with amber-and-glass imagery. The landing page introduces the app, points visitors to the source, and states Windows availability.
+Hive unfolds across five chapters. Amber glyphs flow behind the introduction, parallel execution, shared memory, workflow templates, and Windows availability.
 
 ## Colors
 
-Use ink on paper for titles and muted olive for supporting copy. Ink and muted olive measure 15.90:1 and 6.73:1 against paper, respectively. Amber works for glyphs against ink at 8.88:1 and for decorative marks on paper. The pale rule separates sections without carrying meaning.
+Use cream text over the dark background on the landing page. Amber marks the field and chapter labels. The missing page uses the paper and ink tokens. Give running text a continuous dark wash where the glyphs pass beneath it.
 
 ## Typography
 
@@ -61,11 +65,11 @@ Use Bricolage Grotesque for editorial headings and Geist for navigation and body
 
 ## Layout
 
-Share a gutter across the header, introduction, release panel, and footer. Pair the introduction with its image on wide screens and stack them on narrow screens. Keep the Windows copy clear of the Ring Tower and its fallback art at both sizes. Use at least 44 px for interactive targets.
+Share a gutter across the header, chapters, and footer. Give each idea room to unfold over roughly a viewport, with an open right side for the glyph field and chapter illustrations. Stack copy and examples on narrow widths. Keep Windows and GitHub accessible from the sticky header.
 
 ## Motion & Micro-interaction
 
-Parallax moves the artwork and registration pattern at different rates. Keep buttons, headers, and core copy steady. Make ASCII Fluid legible as a distinct glyph field. Support ordinary scrolling, fragment links, keyboard navigation, and reduced motion. Keep the static illustration visible when WebGL is unavailable. Check that the final wheel gesture still triggers Stretchy Footer at the bottom.
+Mount one viewport-sized ASCII Fluid canvas for the full journey. Move the underlying glyph pattern and supporting illustrations at different rates. Let each chapter's copy rise into view as the visitor scrolls. Reduced motion shows complete text and the static glyph field. Keep fragment links, keyboard navigation, and the footer spring working.
 
 ## Voice & Content Strategy
 
@@ -74,8 +78,8 @@ Keep labels direct. Use “Coming soon” while the fresh Windows release is pen
 ## Components
 
 - **Header** links to Windows availability and GitHub.
-- **Specimen** pairs the amber bee illustration with a scroll-linked registration pattern.
-- **ASCII Fluid** shows moving characters against a contrasting surface.
+- **ASCII Fluid** persists behind every chapter. A procedural glyph field provides a static fallback.
+- **Hackathon template** shows a sample set of reusable roles.
 - **Windows panel** combines Shader Gradient, Radiant Lines, and Ring Tower as layers around the release status.
 - **Stretchy Footer** stretches past the scroll boundary and returns to its resting position.
 - **Snake 404** gives visitors a playable missing-page screen and a link home.
