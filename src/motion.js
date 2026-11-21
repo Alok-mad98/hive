@@ -12,6 +12,13 @@ export function connectScrolling() {
       smoothWheel: true,
       syncTouch: false,
       anchors: { offset: -16 },
+      stopInertiaOnNavigate: true,
+      virtualScroll: ({ deltaY }) => {
+        const root = document.scrollingElement
+        const atFooter = root && root.scrollTop + root.clientHeight >= root.scrollHeight - 2
+        // Let Stretchy Footer receive outward gestures without starting another eased scroll.
+        return !(deltaY > 0 && atFooter)
+      },
     })
   }
   attach()
