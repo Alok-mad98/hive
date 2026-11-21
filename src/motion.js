@@ -33,6 +33,7 @@ export function connectStory(story) {
   const preference = matchMedia('(prefers-reduced-motion: reduce)')
   const root = document.documentElement
   const chapters = [...story.querySelectorAll('.chapter')]
+  const copy = chapters.map(chapter => chapter.querySelector('.chapter-copy'))
   let frame = 0
   function paint() {
     frame = 0
@@ -44,10 +45,16 @@ export function connectStory(story) {
     root.style.setProperty('--glyph-shift', `${motion * -14}vh`)
     root.style.setProperty('--glyph-angle', `${motion * -13 - 7}deg`)
 
-    for (const chapter of chapters) {
+    const positions = chapters.map((chapter, index) => {
       const { top, height: chapterHeight } = chapter.getBoundingClientRect()
       const lead = Math.max(-1, Math.min(1, (height * .5 - top - chapterHeight * .5) / height))
+      const textTop = copy[index]?.getBoundingClientRect().top ?? top
+      const reveal = Math.max(0, Math.min(1, (height * .94 - textTop) / (height * .52)))
+      return { chapter, lead, reveal }
+    })
+    for (const { chapter, lead, reveal } of positions) {
       chapter.style.setProperty('--chapter-drift', preference.matches ? '0px' : `${lead * -42}px`)
+      chapter.style.setProperty('--chapter-reveal', preference.matches ? '1' : reveal.toFixed(4))
     }
   }
   function schedule() {

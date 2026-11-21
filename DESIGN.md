@@ -69,7 +69,7 @@ Share a gutter across the header, chapters, and footer. Give each idea room to u
 
 ## Motion & Micro-interaction
 
-Mount one viewport-sized ASCII Fluid canvas for the full journey. Move the underlying glyph pattern and supporting illustrations at different rates. Let each chapter's copy rise into view as the visitor scrolls. Reduced motion shows complete text and the static glyph field. Keep fragment links, keyboard navigation, and the footer spring working.
+Mount one viewport-sized ASCII Fluid canvas for the full journey. The opening introduces the scout and staggers the headline by letter. Scrolling reveals the rest of the headings by letter and paragraphs by word. Reduced motion shows complete text, static portraits, and the static glyph field. Keep fragment links, keyboard navigation, and the footer spring working.
 
 ## Voice & Content Strategy
 
@@ -80,6 +80,7 @@ Keep labels direct. Use “Coming soon” while the fresh Windows release is pen
 - **Header** links to Windows availability and GitHub.
 - **ASCII Fluid** persists behind every chapter. A procedural glyph field provides a static fallback.
 - **Hackathon template** shows a sample set of reusable roles.
-- **Windows panel** combines Shader Gradient, Radiant Lines, and Ring Tower as layers around the release status.
+- **Scout and crew** use original bee-themed illustrations to introduce Hive and give the example agent roles distinct faces.
+- **Windows panel** combines Shader Gradient, Radiant Lines, and the portrait-covered Ring Tower. The bands spin in place and respond to scroll and drag.
 - **Stretchy Footer** stretches past the scroll boundary and returns to its resting position.
 - **Snake 404** gives visitors a playable missing-page screen and a link home.

@@ -64,6 +64,8 @@ export type RingTowerOptions = {
   speed?: number
   /** Drag a band to spin the tower, with inertia. Default `true`. */
   draggable?: boolean
+  /** Tower rotation, in degrees, while the scene scrolls through the viewport. */
+  scrollRotation?: number
   /**
    * How far, in degrees, the pointer turns each band. Neighbors turn the
    * opposite way. Default `24`, 0 to 90. `0` keeps every band in step.
@@ -482,6 +484,8 @@ export function createRingTower(
   let dragX = 0
   let pointerX = 0
   let pointerTarget = 0
+  let scrollAngle = 0
+  let scrollTarget = 0
 
   const visible = () => onScreen && document.visibilityState !== "hidden"
 
@@ -524,9 +528,10 @@ export function createRingTower(
       velocity *= Math.pow(0.95, dt * 60)
       if (Math.abs(velocity) < 1e-4) velocity = 0
     }
-    tower.rotation.y = angle
-
     const ease = 1 - Math.exp(-dt * 4)
+    scrollAngle += ((still ? 0 : scrollTarget) - scrollAngle) * ease
+    tower.rotation.y = angle + scrollAngle
+
     const target = still ? 0 : pointerTarget
     pointerX += (target - pointerX) * ease
     for (const band of bands) {
@@ -552,6 +557,7 @@ export function createRingTower(
         (towerSpeed !== 0 || spinning || rings.some((r) => r.speed))) ||
       dragging ||
       velocity !== 0 ||
+      (!still && Math.abs(scrollTarget - scrollAngle) > 1e-4) ||
       Math.abs(target - pointerX) > 1e-4 ||
       darkMix !== (dark ? 1 : 0)
     if (moving) raf = requestAnimationFrame(tick)
@@ -584,6 +590,16 @@ export function createRingTower(
     wake()
   }
   window.addEventListener("pointermove", onWindowMove, { passive: true })
+
+  const onScroll = () => {
+    const amount = options.scrollRotation ?? 0
+    if (amount === 0) return
+    const rect = root.getBoundingClientRect()
+    const progress = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height), 0, 1)
+    scrollTarget = (progress - 0.5) * amount * DEG
+    wake()
+  }
+  window.addEventListener("scroll", onScroll, { passive: true })
 
   const onDown = (e: PointerEvent) => {
     if (options.draggable === false || !hits(e)) return
@@ -675,6 +691,7 @@ export function createRingTower(
   applyBackface()
   resize()
   loadImages()
+  onScroll()
   wake()
 
   return {
@@ -701,6 +718,7 @@ export function createRingTower(
       mqReduce.removeEventListener("change", onReduce)
       mqDark.removeEventListener("change", syncTheme)
       window.removeEventListener("pointermove", onWindowMove)
+      window.removeEventListener("scroll", onScroll)
       canvas.removeEventListener("pointerdown", onDown)
       canvas.removeEventListener("pointermove", onMove)
       canvas.removeEventListener("pointerup", onUp)

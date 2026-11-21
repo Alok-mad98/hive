@@ -7,6 +7,6 @@ The six TypeScript engines in this directory come from Jay’s [23rd UI registry
 | [ASCII Fluid](https://www.23rd.dev/docs/components/ascii-fluid) | A single continuous viewport-height field behind every landing chapter |
 | [Shader Gradient](https://www.23rd.dev/docs/components/shader-gradient) | Windows release backdrop |
 | [Radiant Lines](https://www.23rd.dev/docs/components/radiant-lines) | Scroll-responsive streaks behind the rings |
-| [Ring Tower](https://www.23rd.dev/docs/components/ring-tower) | Engraved gold bands in the release section |
+| [Ring Tower](https://www.23rd.dev/docs/components/ring-tower) | Spinning portrait bands in the release chapter, with drag and scroll rotation |
 | [Stretchy Footer](https://www.23rd.dev/docs/components/stretchy-footer) | Overscroll at the foot of the page |
 | [Snake 404](https://www.23rd.dev/docs/components/snake-404) | Playable error page |

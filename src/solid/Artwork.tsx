@@ -1,5 +1,13 @@
 import { onSettled } from 'solid-js'
 
+const crew = [
+  { role: 'Research', image: '/crew/research.webp' },
+  { role: 'Build', image: '/crew/build.webp' },
+  { role: 'Design', image: '/crew/design.webp' },
+  { role: 'Review', image: '/crew/review.webp' },
+]
+const crewTextures = crew.map(member => member.image)
+
 type Engine = { destroy(): void }
 type Setup = () => Promise<(() => Engine | null)>
 
@@ -72,6 +80,28 @@ export function StoryField() {
   )
 }
 
+export function Mascot() {
+  return (
+    <figure class="scout-mascot">
+      <img src="/crew/scout-mascot.webp" width="980" height="1178" fetchpriority="high"
+        alt="Hive’s bee scout with amber wings, a striped scarf, and flight armor" />
+    </figure>
+  )
+}
+
+export function AgentCrew() {
+  return (
+    <ul class="agent-crew" aria-label="Illustrated example agent roles">
+      {crew.map(({ role, image }, index) => (
+        <li class="agent-portrait" style={{ '--crew-enter': (0.22 + index * 0.13).toFixed(2) }}>
+          <img src={image} alt="" width="384" height="384" loading="lazy" decoding="async" />
+          <span>{role}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export function RingStudy() {
   let light!: HTMLCanvasElement
   let rays!: HTMLCanvasElement
@@ -88,9 +118,15 @@ export function RingStudy() {
       }),
       attachArt(rings, async () => {
         const { createRingTower } = await import('../engines/ring-tower')
-        return () => createRingTower(rings, { images: ['/band.svg'], rings: [
-          { rotation: -28, tilt: 13, speed: .40 }, { rotation: 67, tilt: 17, speed: -.55 }, { rotation: 122, tilt: 14, speed: .65 }
-        ], theme: 'dark', parallax: 9, backface: .68, draggable: false })
+        return () => createRingTower(rings, {
+          images: crewTextures,
+          rings: [
+            { rotation: -28, tilt: 14, speed: .68, spin: 14 },
+            { rotation: 67, tilt: 19, speed: -.85, spin: -18 },
+            { rotation: 122, tilt: 14, speed: 1.05, spin: 22 },
+          ],
+          theme: 'dark', parallax: 15, backface: .44, draggable: true, scrollRotation: 115,
+        })
       })
     ]
     return () => cleanup.forEach(dispose => dispose())
@@ -100,7 +136,10 @@ export function RingStudy() {
       <canvas class="shader-field" ref={light} data-slot="shader-gradient" />
       <canvas class="rays-field" ref={rays} data-slot="radiant-lines" />
       <div class="ring-object" ref={rings} data-slot="ring-tower" />
-      <div class="ring-still"><i /><i /><i /></div>
+      <div class="ring-still">
+        {crewTextures.map(image => <img src={image} width="384" height="384" alt="" loading="lazy" />)}
+      </div>
+      <span class="ring-hint">← Drag to spin →</span>
     </div>
   )
 }

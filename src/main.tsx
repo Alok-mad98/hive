@@ -4,7 +4,8 @@ import '@fontsource/geist/latin-400.css'
 import '@fontsource/geist/latin-600.css'
 import '@fontsource-variable/bricolage-grotesque'
 import '@fontsource/ibm-plex-mono/latin-400.css'
-import { StoryField, RingStudy } from './solid/Artwork'
+import { AgentCrew, Mascot, StoryField, RingStudy } from './solid/Artwork'
+import Narration from './solid/Narration'
 import Footer, { FooterContent } from './solid/Footer'
 import Missing from './solid/Missing'
 import { connectScrolling, connectStory } from './motion'
@@ -47,32 +48,45 @@ function Landing() {
       <section class="chapter chapter-intro site-width" aria-labelledby="intro-title">
         <div class="chapter-copy">
           <p class="chapter-label"><span aria-hidden="true" /> A multi-model agent harness</p>
-          <h1 id="intro-title">One brief.<br /><em>Many agents.</em></h1>
-          <p class="chapter-description">Hive is a cloud-native workspace for AI agents on Windows.</p>
+          <h1 id="intro-title" aria-label="One brief. Many agents.">
+            <Narration text="One brief." mode="letter" /><br />
+            <em><Narration text="Many agents." mode="letter" delay={.42} /></em>
+          </h1>
+          <p class="chapter-description"><Narration text="Hive is a cloud-native workspace for AI agents on Windows." mode="word" delay={.8} /></p>
         </div>
+        <Mascot />
         <p class="scroll-note" aria-hidden="true"><span>↓</span> Scroll to explore</p>
       </section>
       <section class="chapter chapter-agents site-width" aria-labelledby="agents-heading">
         <div class="chapter-copy">
           <p class="chapter-label">Parallel execution</p>
-          <h2 id="agents-heading">Work moves<br />in parallel.</h2>
-          <p class="chapter-description">Hive is designed for at least ten agents working at once in each session. Give each a role and a piece of the brief.</p>
+          <h2 id="agents-heading" aria-label="Work moves in parallel.">
+            <Narration text="Work moves" mode="letter" /><br />
+            <Narration text="in parallel." mode="letter" delay={.21} />
+          </h2>
+          <p class="chapter-description"><Narration text="Hive is designed for at least ten agents working at once in each session. Give each a role and a piece of the brief." mode="word" delay={.46} /></p>
         </div>
-        <div class="agent-mark" aria-hidden="true">10<span>+</span></div>
+        <AgentCrew />
       </section>
       <section class="chapter chapter-memory site-width" aria-labelledby="memory-heading">
         <div class="chapter-copy">
           <p class="chapter-label">Shared session memory</p>
-          <h2 id="memory-heading">Keep the team<br />in context.</h2>
-          <p class="chapter-description">Agents share the same session memory. Research, decisions, and handoffs stay available as the work progresses.</p>
+          <h2 id="memory-heading" aria-label="Keep the team in context.">
+            <Narration text="Keep the team" mode="letter" /><br />
+            <Narration text="in context." mode="letter" delay={.21} />
+          </h2>
+          <p class="chapter-description"><Narration text="Agents share the same session memory. Research, decisions, and handoffs stay available as the work progresses." mode="word" delay={.46} /></p>
         </div>
         <div class="memory-orbits" aria-hidden="true"><i /><i /><i /></div>
       </section>
       <section class="chapter chapter-template site-width" aria-labelledby="templates-heading">
         <div class="chapter-copy">
           <p class="chapter-label">Reusable templates</p>
-          <h2 id="templates-heading">Save the<br />playbook.</h2>
-          <p class="chapter-description">Save a plan or a completed session as a template. Start the next hackathon with the same roles and handoffs already set up.</p>
+          <h2 id="templates-heading" aria-label="Save the playbook.">
+            <Narration text="Save the" mode="letter" /><br />
+            <Narration text="playbook." mode="letter" delay={.21} />
+          </h2>
+          <p class="chapter-description"><Narration text="Save a plan or a completed session as a template. Start the next hackathon with the same roles and handoffs already set up." mode="word" delay={.46} /></p>
         </div>
         <figure class="template-example">
           <figcaption>Hackathon template</figcaption>
@@ -85,8 +99,11 @@ function Landing() {
         <RingStudy />
         <div class="chapter-copy">
           <p class="chapter-label">Windows desktop</p>
-          <h2 id="release-heading">Windows<br />preview.</h2>
-          <p class="chapter-description release-status">Coming soon.</p>
+          <h2 id="release-heading" aria-label="Windows preview.">
+            <Narration text="Windows" mode="letter" /><br />
+            <Narration text="preview." mode="letter" delay={.21} />
+          </h2>
+          <p class="chapter-description release-status"><Narration text="Coming soon." mode="word" delay={.46} /></p>
           <a class="github-link" href={repository}>View on GitHub <Arrow /></a>
         </div>
       </section>
